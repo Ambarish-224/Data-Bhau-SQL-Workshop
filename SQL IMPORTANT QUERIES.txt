@@ -1,0 +1,60 @@
+SQL IMPORTANT QUERIES
+
+/*
+	1. install csvkit by opening anaconda prompt
+	   type --> "pip install csvkit"
+	2. Go to anaconda promt
+	   --> Check our csv file directory path --> Copy directory path -->paste it in promt to move to that directory
+	3. dir -- to check folder
+	4. run below query  
+	--> csvsql --dialect mysql --snifflimit 100000 csv_filename.csv > sql_filename.sql
+	5. After running above command our sql_filename.sql file will be generated you can open it inn Mysql workbench 
+	--> you will get table columns name and data type created like below you can use it and create table
+
+			CREATE TABLE `AttributeDataSet` (
+				`Dress_ID` DECIMAL(38, 0) NOT NULL, 
+				`Style` VARCHAR(8) NOT NULL, 
+				`Price` VARCHAR(9), 
+				`Rating` DECIMAL(38, 1) NOT NULL, 
+				`Size` VARCHAR(5) NOT NULL, 
+				`Season` VARCHAR(6), 
+				`NeckLine` VARCHAR(15), 
+				`SleeveLength` VARCHAR(14), 
+				waiseline VARCHAR(8), 
+				`Material` VARCHAR(13), 
+				`FabricType` VARCHAR(10), 
+				`Decoration` VARCHAR(10), 
+				`Pattern Type` VARCHAR(9), 
+				`Recommendation` BOOL NOT NULL
+			);
+
+*/
+		
+-- After table is created is created we can load data from csv using insert clause --
+
+-- To Load data from csv file to TABLE --
+
+LOAD DATA LOCAL INFILE 'C:/Users/Kamble/OneDrive/Desktop/Individual/Vishwajeet/Learning/SQL/Data Bhau/tutorial/customer.csv'
+INTO TABLE customer
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'    -- WRITE SINGLE " IN  COLON ' '
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+
+-- To change limit of loading records --
+
+set global max_allowed_packet = 209715200;
+
+
+-- To Load data without warning or easy loading with out incorrect datatype we use sql_mode -- 
+
+SET SESSION sql_mode = '';
+
+show variables like "secure_file_priv";
+
+
+-- We can use Below to ON local-infile -- 
+
+SHOW GLOBAL VARIABLES LIKE 'local_infile';
+set global local_infile = 1;
